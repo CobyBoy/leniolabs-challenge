@@ -69,11 +69,12 @@ export class TableComponent implements OnInit {
 
   countJobArea(usersList: Observable<User[]>) {
     let count: Count = {};
-    usersList.subscribe((users) => {
+    this.sharingService.sharingUsersList$Getter.subscribe((users) => {
       users.forEach((user) => {
         count[user.job_area] = (count[user.job_area] || 0) + 1;
       });
     });
+    usersList.subscribe().unsubscribe()
     console.log(Object.keys(count));
     return count;
   }
