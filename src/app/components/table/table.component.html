@@ -1,0 +1,21 @@
+<div>Results: {{totalRowCount}}</div>
+<table class="table table-hover" #userTable>
+  <thead>
+    <tr>
+      <th *ngFor="let column of columns">{{ column }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <div *ngIf="(userListFiltered$ | async)?.length == 0">Loading... </div>
+    <ng-container *ngFor="let user of (userListFiltered$ | async) as users; index as i; trackBy: identify">
+      <tr>
+        <td>{{ user.createdAt | date: "medium" }}</td>
+        <td>{{ user.name }}</td>
+        <td><img src="{{ user.avatar }}" alt="no img" /></td>
+        <td>{{ user.zip }}</td>
+        <td>{{ user.last_name }}</td>
+        <td>{{ user.job_area }}</td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>

@@ -1,0 +1,11 @@
+<div class="input-group mb-3">
+  <input
+    type="search"
+    placeholder="Filter by name"
+    id="search"
+    autocomplete="off"
+    [(ngModel)]="searchText"
+    (input)="onSearchTextChanged()"
+    class="form-control"
+  />
+</div>

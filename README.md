@@ -1,27 +1,20 @@
-# Counter
+1.  Create a table with the following columns:
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.5.
+    - createdAt
+    - name
+    - avatar
+    - zip
+    - last_name
+    - job_area
 
-## Development server
+2.  Populate the table using `data.js`:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+3.  Add a input text to filter the table by name
 
-## Code scaffolding
+4.  Group orders by `job_area` and count + display the results
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+5.  BONUS 1
 
-## Build
+Populate the table using the following endpoint:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+    https://61602c82faa03600179fb917.mockapi.io/orders
