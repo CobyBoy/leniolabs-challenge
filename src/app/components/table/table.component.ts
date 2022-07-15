@@ -4,6 +4,9 @@ import { SharingService } from 'src/app/services/sharing.service';
 import { TableService } from 'src/app/services/table.service';
 import { User } from 'src/app/types/user';
 
+interface Count {
+  [index: string]: number
+}
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -13,6 +16,7 @@ export class TableComponent implements OnInit {
   numberOfRows: number = 0;
   columns: string[];
   userListFiltered$: Observable<User[]>;
+  count!: Count;
 
   constructor(
     private tableService: TableService,
@@ -45,6 +49,7 @@ export class TableComponent implements OnInit {
       .subscribe((users: User[]) => {
         this.sharingService.sharingUsersList$Setter = users;
         this.sharingService.filteredUsersList$Setter = users;
+        this.count = this.countJobArea(this.userListFiltered$);
       });
   }
 
@@ -53,10 +58,23 @@ export class TableComponent implements OnInit {
   }
 
   set totalRowCountSetter(_usersLength: number) {
-    this.userListFiltered$.subscribe((users: User[]) => this.numberOfRows  = users.length)
+    this.userListFiltered$.subscribe(
+      (users: User[]) => (this.numberOfRows = users.length)
+    );
   }
 
   identify(_index: number, user: User): string {
     return user.id;
+  }
+
+  countJobArea(usersList: Observable<User[]>) {
+    let count: Count = {};
+    usersList.subscribe((users) => {
+      users.forEach((user) => {
+        count[user.job_area] = (count[user.job_area] || 0) + 1;
+      });
+    });
+    console.log(Object.keys(count));
+    return count;
   }
 }

@@ -16,6 +16,9 @@
         <td>{{ user.last_name }}</td>
         <td>{{ user.job_area }}</td>
       </tr>
+      <tr *ngIf="count[user.job_area] === count[user.job_area]">
+        <td [colSpan]="columns.length">Count of {{user.job_area}} {{count[user.job_area]}}</td>
+      </tr>
     </ng-container>
   </tbody>
 </table>
