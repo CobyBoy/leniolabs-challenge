@@ -8,17 +8,18 @@
   <tbody>
     <div *ngIf="(userListFiltered$ | async)?.length == 0">Loading... </div>
     <ng-container *ngFor="let user of (userListFiltered$ | async) as users; index as i; trackBy: identify">
-      <tr>
+     <tr>
         <td>{{ user.createdAt | date: "medium" }}</td>
-        <td>{{ user.name }}</td>
-        <td><img src="{{ user.avatar }}" alt="no img" /></td>
+        <td>{{ user.name }} index: {{i}}</td>
+        <td><img src="{{ user.avatar }}" [alt]="user.name+ ' image not available'" /></td>
         <td>{{ user.zip }}</td>
         <td>{{ user.last_name }}</td>
-        <td>{{ user.job_area }}</td>
-      </tr>
-      <tr *ngIf="count[user.job_area] === count[user.job_area]">
-        <td [colSpan]="columns.length">Count of {{user.job_area}} {{count[user.job_area]}}</td>
+        <td>{{ user.job_area }} {{count[user.job_area]}}</td>
       </tr>
     </ng-container>
+      <tr *ngFor="let c of count | keyvalue">
+        <td [colSpan]="columns.length">Count of {{c.key}} {{c.value}}</td>
+      </tr>
   </tbody>
+  
 </table>

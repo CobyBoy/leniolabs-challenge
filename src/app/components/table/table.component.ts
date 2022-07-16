@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
 import { SharingService } from 'src/app/services/sharing.service';
 import { TableService } from 'src/app/services/table.service';
 import { User } from 'src/app/types/user';
 
 interface Count {
-  [index: string]: number
+  [index: string]: number;
 }
 @Component({
   selector: 'app-table',
@@ -17,6 +17,8 @@ export class TableComponent implements OnInit {
   columns: string[];
   userListFiltered$: Observable<User[]>;
   count!: Count;
+  @ViewChild('userTable') table!: ElementRef;
+  rowsSum: number = 0;
 
   constructor(
     private tableService: TableService,
@@ -49,7 +51,7 @@ export class TableComponent implements OnInit {
       .subscribe((users: User[]) => {
         this.sharingService.sharingUsersList$Setter = users;
         this.sharingService.filteredUsersList$Setter = users;
-        this.count = this.countJobArea(this.userListFiltered$);
+        this.count = this.countJobArea();
       });
   }
 
@@ -67,14 +69,13 @@ export class TableComponent implements OnInit {
     return user.id;
   }
 
-  countJobArea(usersList: Observable<User[]>) {
+  countJobArea(): Count {
     let count: Count = {};
     this.sharingService.sharingUsersList$Getter.subscribe((users) => {
       users.forEach((user) => {
         count[user.job_area] = (count[user.job_area] || 0) + 1;
       });
     });
-    usersList.subscribe().unsubscribe()
     console.log(Object.keys(count));
     return count;
   }
