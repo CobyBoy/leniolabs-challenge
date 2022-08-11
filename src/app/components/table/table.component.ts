@@ -16,7 +16,7 @@ export class TableComponent implements OnInit {
   numberOfRows: number = 0;
   columns: string[];
   userListFiltered$: Observable<User[]>;
-  count!: Count;
+  jobAreaCounter!: Count;
   @ViewChild('userTable') table!: ElementRef;
   rowsSum: number = 0;
 
@@ -51,7 +51,7 @@ export class TableComponent implements OnInit {
       .subscribe((users: User[]) => {
         this.sharingService.sharingUsersList$Setter = users;
         this.sharingService.filteredUsersList$Setter = users;
-        this.count = this.countJobArea();
+        this.jobAreaCounter = this.countJobArea();
       });
   }
 
@@ -76,7 +76,7 @@ export class TableComponent implements OnInit {
         count[user.job_area] = (count[user.job_area] || 0) + 1;
       });
     });
-    console.log(Object.keys(count));
+    console.log(count);
     return count;
   }
 }

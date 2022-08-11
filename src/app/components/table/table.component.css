@@ -1,9 +1,0 @@
-table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-th,
-tr, td {
-    border: 1px solid #dddddd;
-}

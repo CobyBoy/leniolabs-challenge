@@ -1,23 +1,23 @@
 <div>Results: {{totalRowCount}}</div>
 <table class="table table-hover" #userTable>
-  <thead>
+  <thead class="thead-dark">
     <tr>
       <th *ngFor="let column of columns">{{ column }}</th>
     </tr>
   </thead>
   <tbody>
     <div *ngIf="(userListFiltered$ | async)?.length == 0">Loading... </div>
-    <ng-container *ngFor="let user of (userListFiltered$ | async) as users; index as i; trackBy: identify">
-     <tr>
+    
+     <tr *ngFor="let user of (userListFiltered$ | async) as users; index as tableIndex; trackBy: identify">
         <td>{{ user.createdAt | date: "medium" }}</td>
-        <td>{{ user.name }} index: {{i}}</td>
-        <td><img src="{{ user.avatar }}" [alt]="user.name+ ' image not available'" /></td>
+        <td>{{ user.name }} index: {{tableIndex}}</td>
+        <td><img [src]="user.avatar" [alt]="user.name+ ' image not available'" /></td>
         <td>{{ user.zip }}</td>
         <td>{{ user.last_name }}</td>
-        <td>{{ user.job_area }} {{count[user.job_area]}}</td>
+        <td>{{ user.job_area }} {{jobAreaCounter[user.job_area]}}</td>
       </tr>
-    </ng-container>
-      <tr *ngFor="let c of count | keyvalue">
+    
+      <tr *ngFor="let c of jobAreaCounter | keyvalue">
         <td [colSpan]="columns.length">Count of {{c.key}} {{c.value}}</td>
       </tr>
   </tbody>
